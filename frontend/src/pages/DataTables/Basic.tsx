@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../Slice';
 
 const Basic = () => {
     const dispatch = useAppDispatch();
-    const { data, loading, error } = useAppSelector((state) => state.directIncomeReducer);
+    const { data, loading, error } = useAppSelector((state: any) => state.directIncomeReducer);
 
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [page, setPage] = useState(1);

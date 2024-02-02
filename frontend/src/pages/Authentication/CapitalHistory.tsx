@@ -11,7 +11,7 @@ import { fetchWithdrawHistory } from '../../Slice/packageSlice';
 const CapitalHistory = () => {
     const dispatch = useAppDispatch();
 
-    const { data, loading, error } = useAppSelector((state) => state.withdrawHistoryreducer);
+    const { data, loading, error } = useAppSelector((state) => state.capitalWithdrawHistoryreducer);
 
     useEffect(() => {
         dispatch(fetchWithdrawHistory());
@@ -78,10 +78,10 @@ const CapitalHistory = () => {
             </div> */}
             {/* Skin: Striped  */}
             <div className="panel">
-                {/* <div className="flex items-center justify-between mb-5">
-                    <h5 className="font-semibold text-lg dark:text-white-light">WALLET WITHDRAW HISTORY</h5>
-                    <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} />
-                </div> */}
+                <div className="flex items-center justify-between mb-5">
+                    <h5 className="font-semibold text-lg dark:text-white-light">Capital Withdraw History</h5>
+                    {/* <input type="text" className="form-input w-auto" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)} /> */}
+                </div>
                 {loading && <>Loading...</>}
                 <div className="datatables">
                     <DataTable

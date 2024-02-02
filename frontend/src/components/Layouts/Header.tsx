@@ -66,7 +66,7 @@ const Header = () => {
         if (!userInfo) navigate('/login');
     }, [location, userInfo]);
 
-    console.log(userInfo.id);
+    // console.log(userInfo.id);
 
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
 

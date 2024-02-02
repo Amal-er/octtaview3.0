@@ -172,6 +172,7 @@ interface UserProfileData {
     capitalAmount: number;
     ownSponserId: string;
     dailyBonus: number;
+    totalIncome: number;
     // Add other profile-related fields here
 }
 
@@ -274,13 +275,13 @@ export const fetchChangePassword = createAsyncThunk('fetchChangePassword', async
 // Redux
 const addchangePassword = createSlice({
     name: 'addchange',
-    initialState: { data: null, loading: false, error: null },
+    initialState: { data: null, loading: false, error: false },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchChangePassword.pending, (state) => {
                 state.loading = true;
-                state.error = null;
+                state.error = false;
             })
             .addCase(fetchChangePassword.fulfilled, (state, action) => {
                 state.loading = false;
@@ -288,7 +289,7 @@ const addchangePassword = createSlice({
             })
             .addCase(fetchChangePassword.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message;
+                state.error = true;
             });
     },
 });
@@ -296,7 +297,7 @@ const addchangePassword = createSlice({
 // Export reducer only
 export const addchangePasswordreducer = addchangePassword.reducer;
 
-// 5-------------- change transcation password
+// 5-------------- change transaction password
 
 interface UserDatas {
     currentTransactionPassword: any;
@@ -307,14 +308,14 @@ interface UserDatas {
 
 // Define the type for the add fund history information in the state
 interface UserState {
-    data: UserDatas[] | null;
+    datas: UserDatas[] | null;
     loading: boolean;
     error: any | null;
 }
 
 // Redux
-export const fetchTransactionChangePassword = createAsyncThunk('fetchChangePassword', async (data: UserData) => {
-    const { currentTransactionPassword, newTransactionPassword, confirmTransactionPassword } = data;
+export const fetchTransactionChangePassword = createAsyncThunk('fetchChangePassword', async (datas: any) => {
+    const { currentTransactionPassword, newTransactionPassword, confirmTransactionPassword } = datas;
 
     const token: any = localStorage.getItem('userInfo');
     const parsedData = JSON.parse(token);
@@ -342,13 +343,13 @@ export const fetchTransactionChangePassword = createAsyncThunk('fetchChangePassw
 // Redux
 const AddChangeTransactionPassword = createSlice({
     name: 'addchangeTransaction',
-    initialState: { data: null, loading: false, error: null },
+    initialState: { data: null, loading: false, error: false },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchTransactionChangePassword.pending, (state) => {
                 state.loading = true;
-                state.error = null; // Reset error on pending
+                state.error = false; // Reset error on pending
             })
             .addCase(fetchTransactionChangePassword.fulfilled, (state, action) => {
                 state.loading = false;
@@ -356,7 +357,7 @@ const AddChangeTransactionPassword = createSlice({
             })
             .addCase(fetchTransactionChangePassword.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message; // Store error message
+                state.error = true; // Store error message
             });
     },
 });
@@ -476,7 +477,11 @@ export const fetchDirectIncome = createAsyncThunk<directIncome[]>('fetchDirectIn
 // Redux slice for direct income
 const directIncomeSlice = createSlice({
     name: 'directIncome',
-    initialState: initialStateDirectIncome,
+    initialState: {
+        loading: false,
+        data: {},
+        error: false,
+    },
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -541,7 +546,11 @@ export const fetchLevelIncome1 = createAsyncThunk<directIncome[]>('fetchLevelInc
 // Redux slice for direct income
 const levelIncomeSlice1 = createSlice({
     name: 'levelIncome1',
-    initialState: initialStateDirectIncome,
+    initialState: {
+        loading: false,
+        data: {},
+        error: false,
+    },
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -606,7 +615,11 @@ export const fetchLevelIncome2 = createAsyncThunk<directIncome[]>('fetchLevelInc
 // Redux slice for direct income
 const levelIncomeSlice2 = createSlice({
     name: 'levelIncome2',
-    initialState: initialStateDirectIncome,
+    initialState: {
+        loading: false,
+        data: {},
+        error: false,
+    },
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -671,7 +684,11 @@ export const fetchLevelIncome3 = createAsyncThunk<directIncome[]>('fetchLevelInc
 // Redux slice for direct income
 const levelIncomeSlice3 = createSlice({
     name: 'levelIncome3',
-    initialState: initialStateDirectIncome,
+    initialState: {
+        loading: false,
+        data: {},
+        error: false,
+    },
     reducers: {},
     extraReducers: (builder) => {
         builder

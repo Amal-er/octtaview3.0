@@ -190,17 +190,16 @@ export const capitalWithdrawHistoryreducer = capitalWithdrawHistorySlice.reducer
 // ROI income history
 
 interface RoiIncomeHistoryData {
-    slno: number;
-    date: string;
-    orderid: string;
-    txnid: string;
-    amount: number;
-    status: boolean;
+    name: string;
+    _id: string;
+    creditedAmount: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
 // Define the type for the add fund history information in the state
 interface RoiHistoryState {
-    data: RoiIncomeHistoryData[] | null;
+    data: RoiIncomeHistoryData[] | any;
     loading: boolean;
     error: string | null;
 }

@@ -30,13 +30,16 @@ const ChangeTxnPassword = () => {
         dispatch(setPageTitle('Change Transaction Update'));
     });
 
-    const submitForm = () => {
-        if (newTransactionPassword === confirmTransactionPassword) {
-            dispatch(fetchTransactionChangePassword({ newTransactionPassword, confirmTransactionPassword }) as any);
-            navigate('/');
-        } else {
-            console.error('New Transaction Password and Confirm Password do not match');
+    const submitForm = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (newTransactionPassword !== confirmTransactionPassword) {
+            console.error('Passwords do not match');
+            return;
         }
+
+        dispatch(fetchTransactionChangePassword({ newTransactionPassword, confirmTransactionPassword }) as any);
+
+        alert('Change transaction password request sent!');
     };
 
     const navigate = useNavigate();

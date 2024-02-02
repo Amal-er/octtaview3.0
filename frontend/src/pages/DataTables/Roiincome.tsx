@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux';
 import { setPageTitle } from '../../Slice/themeConfigSlice';
 import { fetchROIincome } from '../../Slice/packageSlice';
 import { useAppDispatch, useAppSelector } from '../../Slice';
+import { Header } from '@mantine/core';
+import Headers from '../../components/Layouts/Header';
 
 const Roiincome = () => {
     const dispatch = useAppDispatch();
-    const { data, loading, error } = useAppSelector((state) => state.RoiincomeSlicereducer);
+    const { data, loading, error } = useAppSelector((state: any) => state.RoiincomeSlicereducer);
 
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [page, setPage] = useState(1);
@@ -20,11 +22,11 @@ const Roiincome = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (data?.directIncome) {
-            setInitialRecords(data.directIncome);
-            setRecordsData(data.directIncome.slice(0, pageSize));
+        if (data?.dailyROIHistory) {
+            setInitialRecords(data.dailyROIHistory);
+            setRecordsData(data.dailyROIHistory.slice(0, pageSize));
         }
-    }, [data?.directIncome, pageSize]);
+    }, [data?.dailyROIHistory, pageSize]);
 
     useEffect(() => {
         setPage(1);
@@ -50,8 +52,10 @@ const Roiincome = () => {
 
     return (
         <div>
+            {' '}
+            <Headers />
             <div className="panel mt-6">
-                <h5 className="font-semibold text-lg dark:text-white-light mb-5">Direct Income</h5>
+                <h5 className="font-semibold text-lg dark:text-white-light mb-5">ROI Income</h5>
                 <div className="datatables">
                     <DataTable
                         noRecordsText="No results match your search query"
@@ -61,10 +65,8 @@ const Roiincome = () => {
                         columns={[
                             { accessor: '_id', title: 'id' },
                             { accessor: 'name', title: 'Name' },
-                            { accessor: 'userID', title: 'User ID' },
-                            { accessor: 'amountCredited', title: 'Amount Credited' },
-                            { accessor: 'transactionCode', title: 'Transaction Code' },
-                            { accessor: 'status', title: 'Status' },
+                            { accessor: 'creditedAmount', title: 'credited Amount' },
+
                             { accessor: 'createdAt', title: 'Created At' },
                             { accessor: 'updatedAt', title: 'Updated At' },
                         ]}
