@@ -937,3 +937,85 @@ const getNewReferalSlice = createSlice({
 // export const selectAddNewFund = (state: any) => state.getAddNewFund;
 
 export const getNewReferalReducer = getNewReferalSlice.reducer;
+
+// -----------------------verify user----------------
+
+interface VerifyUser {
+    name: string;
+    username: string;
+    email: string;
+    phone: string;
+    address: string;
+    transactionpassword: string;
+    Password: string;
+}
+
+interface AddNewVerifyState {
+    loading: boolean;
+    data: any;
+    error: string | null;
+}
+
+const initialState7: AddNewVerifyState = {
+    loading: false,
+    data: null,
+    error: null,
+};
+
+export const checkNewVerify = createAsyncThunk('checkverify', async (user: any) => {
+    const token: any = localStorage.getItem('userInfo');
+    const parsedData = JSON.parse(token);
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${parsedData.access_token}`,
+            'content-type': 'application/json',
+        },
+    };
+
+    const response = await axios.post(
+        `${URL}/api/user/verify-user`,
+        {
+            username: user.userName,
+            email: user.email,
+            phone: user.phone,
+            address: user.address,
+            transactionPassword: user.transactionPassword,
+            password: user.password,
+        },
+        config
+    );
+
+    return response.data;
+});
+
+// redux
+const getCheckNewVerifySlice = createSlice({
+    name: 'getNewverify',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(checkNewVerify.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(checkNewVerify.fulfilled, (state, action: PayloadAction<any>) => {
+                state.loading = false;
+                state.data = action.payload;
+            })
+            .addCase(checkNewVerify.rejected, (state, action: any) => {
+                state.loading = false;
+                if (action.error && action.error.message === 'Your specific error message') {
+                    // Handle specific error
+                    state.error = 'Your specific error message';
+                } else {
+                    state.error = 'An error occurred while processing your request.';
+                }
+            });
+    },
+});
+
+// export const selectAddNewFund = (state: any) => state.getAddNewFund;
+
+export const getCheckNewVerifySlicereducer = getCheckNewVerifySlice.reducer;
