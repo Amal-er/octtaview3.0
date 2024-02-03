@@ -162,6 +162,7 @@ export const getAddNewFundReducer = getAddNewFund.reducer;
 
 // Define the type for user profile data
 interface UserProfileData {
+    id: string;
     name: string;
     email: string;
     phone: number;

@@ -20,6 +20,7 @@ import { getCapitalWithdrawFundreducer } from './userSlice';
 import { capitalWithdrawHistoryreducer } from './packageSlice';
 import { RoiincomeSlicereducer } from './packageSlice';
 import { getNewReferalReducer } from './userSlice';
+import { getCheckNewVerifySlicereducer } from './userSlice';
 
 const rootReducer = combineReducers({
     themeConfig: themeConfigSlice,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
     capitalWithdrawHistoryreducer,
     RoiincomeSlicereducer,
     getNewReferalReducer,
+    getCheckNewVerifySlicereducer,
 });
 
 const store = configureStore({

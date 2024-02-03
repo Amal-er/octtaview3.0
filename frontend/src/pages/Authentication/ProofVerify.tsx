@@ -116,7 +116,7 @@ const ProofVerify: React.FC<ComponentProps> = () => {
     const navigate = useNavigate();
     const [file, setFile] = useState<File | null>(null);
 
-    const { userInfo } = useAppSelector((state: any) => state.getCheckNewVerifySliceReducer);
+    const { userInfo } = useAppSelector((state: any) => state.getCheckNewVerifySlicereducer);
 
     useEffect(() => {
         dispatch(setPageTitle('proofverify'));

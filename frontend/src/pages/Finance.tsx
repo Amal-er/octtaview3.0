@@ -405,17 +405,22 @@ const Finance = () => {
     };
 
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
-
+    const handleCopyClick = () => {
+        if (userProfile) {
+            navigator.clipboard.writeText(userProfile.id);
+            alert('copied to clipboard');
+        }
+    };
     return (
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
                 <li>
-                    <Link to="#" className="text-primary hover:underline">
-                        Dashboard
-                    </Link>
+                    <button className="bg-primary text-white hover:underline rounded-md" onClick={handleCopyClick}>
+                        Copy
+                    </button>
                 </li>
                 <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-                    <span>Octtaview</span>
+                    <span>{userProfile && userProfile.id}</span>
                 </li>
             </ul>
             <div className="pt-5">
@@ -662,93 +667,7 @@ const Finance = () => {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                    <div className="grid gap-6 xl:grid-flow-row">
-                        {/* <div className="panel overflow-hidden">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <div className="text-lg font-bold">{}</div>
-                                    <div className="text-success"> {} </div>
-                                </div>
-                                <div className="dropdown">
-                                    <Dropdown
-                                        offset={[0, 5]}
-                                        placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                        btnClassName="hover:opacity-80"
-                                        button={<IconHorizontalDots className="hover:opacity-80 opacity-70" />}
-                                    >
-                                        <ul>
-                                            <li>
-                                                <button type="button">{}</button>
-                                            </li>
-                                            <li>
-                                                <button type="button">{}</button>
-                                            </li>
-                                        </ul>
-                                    </Dropdown>
-                                </div>
-                            </div>
-                            <div className="relative mt-10">
-                                <div className="absolute -bottom-12 ltr:-right-12 rtl:-left-12 w-24 h-24">
-                                    <IconCircleCheck className="text-success opacity-20 w-full h-full" />
-                                </div>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                                    <div>
-                                        <div className="text-primary">{}</div>
-                                        <div className="mt-2 font-semibold text-2xl">{}</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-primary">{}</div>
-                                        <div className="mt-2 font-semibold text-2xl">{}</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-primary">{}</div>
-                                        <div className="mt-2 font-semibold text-2xl">{}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-                        {/*  Current Statement */}
-                        {/* <div className="panel overflow-hidden">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <div className="text-lg font-bold">{}</div>
-                                    <div className="text-danger"> {} </div>
-                                </div>
-                                <div className="dropdown">
-                                    <Dropdown offset={[0, 5]} placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`} button={<IconHorizontalDots className="hover:opacity-80 opacity-70" />}>
-                                        <ul>
-                                            <li>
-                                                <button type="button">{}</button>
-                                            </li>
-                                            <li>
-                                                <button type="button">{}</button>
-                                            </li>
-                                        </ul>
-                                    </Dropdown>
-                                </div>
-                            </div>
-                            <div className="relative mt-10">
-                                <div className="absolute -bottom-12 ltr:-right-12 rtl:-left-12 w-24 h-24">
-                                    <IconInfoCircle className="text-danger opacity-20 w-24 h-full" />
-                                </div>
-
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                                    <div>
-                                        <div className="text-primary">{}</div>
-                                        <div className="mt-2 font-semibold text-2xl">{}</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-primary">{}</div>
-                                        <div className="mt-2 font-semibold text-2xl">{}</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-primary">{}</div>
-                                        <div className="mt-2 font-semibold text-2xl">{}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
-                    </div>
+                    <div className="grid gap-6 xl:grid-flow-row"></div>
 
                     {/* <div className="panel">
                         <div className="mb-5 text-lg font-bold">Recent Transactions</div>
