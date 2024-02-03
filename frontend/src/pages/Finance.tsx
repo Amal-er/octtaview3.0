@@ -4,7 +4,7 @@ import ReactApexChart from 'react-apexcharts';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../Slice';
 import { setPageTitle } from '../Slice/themeConfigSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import IconHorizontalDots from '../components/Icon/IconHorizontalDots';
 import IconEye from '../components/Icon/IconEye';
 import IconBitcoin from '../components/Icon/IconBitcoin';
@@ -17,6 +17,7 @@ import IconCircleCheck from '../components/Icon/IconCircleCheck';
 import IconInfoCircle from '../components/Icon/IconInfoCircle';
 import { fetchUserProfile } from '../../src/Slice/userSlice';
 import { useAppDispatch, useAppSelector } from '../../src/Slice/index';
+import { log } from 'console';
 
 const Finance = () => {
     const dispatch = useAppDispatch();
@@ -405,22 +406,40 @@ const Finance = () => {
     };
 
     const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
+    //   ----------------------
+    const [copied, setCopied] = useState(false);
+    const userProfileId = userProfile && userProfile.id;
+
     const handleCopyClick = () => {
-        if (userProfile) {
-            navigator.clipboard.writeText(userProfile.id);
-            alert('copied to clipboard');
-        }
+        // Create a text area element to temporarily hold the URL
+        const textArea = document.createElement('textarea');
+        textArea.value = `https://octtaview.com/register/${userProfileId}`;
+        document.body.appendChild(textArea);
+
+        // Select and copy the text
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        // Set copied to true
+        setCopied(true);
+
+        // Reset copied state after a short delay
+        setTimeout(() => {
+            setCopied(false);
+        }, 2000);
     };
+
     return (
         <div>
             <ul className="flex space-x-2 rtl:space-x-reverse">
                 <li>
                     <button className="bg-primary text-white hover:underline rounded-md" onClick={handleCopyClick}>
-                        Copy
+                        {copied ? 'Copied!' : 'Copy'}
                     </button>
                 </li>
                 <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-                    <span>{userProfile && userProfile.id}</span>
+                    <span>{`https://octtaview.com/register/${userProfileId}`}</span>
                 </li>
             </ul>
             <div className="pt-5">
